@@ -1,9 +1,14 @@
 import React from "react";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+import Layout from "./components/layout/Layout";
 
 function App() {
-  return <div className="App">TODO- Add layouts- main, header and footer</div>;
+  return (
+    <div className="App">
+      <Layout />
+    </div>
+  );
 }
 
 export default App;
