@@ -1,0 +1,8 @@
+{
+  "short_name": "Tasks React App Uni",
+  "name": "Project Task React App Uni",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
