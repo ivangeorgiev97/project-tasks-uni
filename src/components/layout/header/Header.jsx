@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -8,13 +9,23 @@ const Header = () => {
       <Navbar bg="light" variant="light">
         <Navbar.Brand href="#home">Tasks Uni Project</Navbar.Brand>
         <Nav className="mr-auto">
-          <Nav.Link href="#home">Home</Nav.Link>
-          <Nav.Link href="#tasks">Tasks</Nav.Link>
-          <Nav.Link href="#users">Users</Nav.Link>
+          <Link className="nav-link" exact to="/">
+            Home
+          </Link>
+          <Link className="nav-link" to="/tasks">
+            Tasks
+          </Link>
+          <Link className="nav-link" to="/users">
+            Users
+          </Link>
         </Nav>
         <Nav>
-          <Nav.Link href="#register">Register</Nav.Link>
-          <Nav.Link href="#login">Login</Nav.Link>
+          <Link className="nav-link" to="/registration">
+            Registration
+          </Link>
+          <Link className="nav-link" to="/login">
+            Login
+          </Link>
           <Nav.Link href="#logout">Logout</Nav.Link>
         </Nav>
       </Navbar>

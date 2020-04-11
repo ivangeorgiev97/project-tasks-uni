@@ -1,11 +1,7 @@
 import React from "react";
 
 const Content = () => {
-  return (
-    <div className="Content">
-        MAIN CONTENT
-    </div>
-  );
-}
+  return <div className="Content"></div>;
+};
 
-export default Content
+export default Content;

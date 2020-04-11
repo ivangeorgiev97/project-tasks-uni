@@ -5,13 +5,14 @@ const footerStyle = {
   bottom: 0,
   backgroundColor: "rgb(248, 249, 250)",
   fontSize: "20px",
-  width: "100%"
+  width: "100%",
+  textAlign: "center"
 };
 
-const Footer = () => {
+const Footer = props => {
   return (
     <footer style={footerStyle} className="Footer">
-      Ivan Georgiev - 1601681030
+      { props.content }
     </footer>
   );
 };

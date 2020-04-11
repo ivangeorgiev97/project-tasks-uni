@@ -1,5 +1,5 @@
-import initialState from "./initialState";
-import { ADD_USER, UPDATE_USER, SET_CURRENT_USER } from "./actionTypes";
+import initialState from "../initialState";
+import { ADD_USER, UPDATE_USER, DELETE_USER, SET_CURRENT_USER } from "./actionTypes";
 
 const users = (state = initialState, action) => {
   switch (action.type) {
@@ -25,6 +25,7 @@ const users = (state = initialState, action) => {
           : user
       );
     case DELETE_USER:
+      // TODO -ADD Delete cascade for tasks
       return state.users.filter(user => user.id !== action.payload);
     case SET_CURRENT_USER:
       state.currentUser = action.payload;
