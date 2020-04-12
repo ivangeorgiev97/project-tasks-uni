@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const footerStyle = {
   position: "fixed",
@@ -9,12 +10,16 @@ const footerStyle = {
   textAlign: "center"
 };
 
-const Footer = props => {
+const Footer = ({ content }) => {
   return (
     <footer style={footerStyle} className="Footer">
-      { props.content }
+      { content }
     </footer>
   );
 };
+
+Footer.propTypes = {
+  content: PropTypes.string.isRequired
+}
 
 export default Footer;
