@@ -1,17 +1,17 @@
 import initialState from "../initialState";
 import { ADD_USER, UPDATE_USER, DELETE_USER, SET_CURRENT_USER } from "./actionTypes";
 
-const users = (state = initialState, action) => {
+const users = (state = initialState.users, action) => {
   switch (action.type) {
     case ADD_USER:
       return [
-        ...state.users,
+        ...state,
         {
-          id: action.payload.id,
+          id: state.length + 1,
           username: action.payload.username,
           password: action.payload.password,
-          role: action.payload.role,
-        },
+          role: "user",
+        }
       ];
     case UPDATE_USER:
       return state.users.map(user =>
@@ -29,7 +29,7 @@ const users = (state = initialState, action) => {
       return state.users.filter(user => user.id !== action.payload);
     case SET_CURRENT_USER:
       state.currentUser = action.payload;
-      return state.currentUser;
+      return state;
     default:
       return state;
   }

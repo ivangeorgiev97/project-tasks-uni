@@ -3,6 +3,6 @@ import usersReducers from './users/reducers'
 import tasksReducers from './tasks/reducers'
 
 export default combineReducers({
-    usersReducers,
-    tasksReducers
+    users: usersReducers,
+    tasks: tasksReducers
 })
