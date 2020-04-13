@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
+import { connect, useStore } from "react-redux";
+import { useHistory } from 'react-router-dom';
 import { addUser } from "../../store/users/actions";
-import { useStore } from "react-redux";
-import { validateUsername, validatePassword } from "../../validation/validator";
+import { validateUsername, validatePassword } from "../../validation/userValidation";
 
 const Registration = ({ dispatch }) => {
   const store = useStore();
+  const history = useHistory();
   const [username, setUsername] = useState("");
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
@@ -17,45 +18,45 @@ const Registration = ({ dispatch }) => {
   const handleRegistrationSubmit = (evt) => {
     evt.preventDefault();
 
-    // If forms are not valid display messages for fields and do not dispatch action
+    // If forms are not valid or user is not unique display messages for fields and do not dispatch action
     if (!validateRegistrationForm()) return;
 
-    // If user is not unique display message for that and do not dispatch action
-    if (!isUserUnique()) return;
-
+    // If form is validated dispatch addUser action
     dispatch(addUser({ username: username, password: password1 }));
+
+    // Redirect user to login
+    history.push('/login')
   };
 
   const validateRegistrationForm = () => {
     if (!validateUsername(username)) {
       setUserValid(false)
-      return false;
     } else {
       setUserValid(true)
     }
 
     if (!validatePassword(password1)) {
       setPasswordValid(false)
-      return false;
     } else {
       setPasswordValid(true)
     }
 
     if (password1 !== password2) {
       setSamePasswords(false)
-      return false;
     } else {
       setSamePasswords(true)
     }
 
-    return true
+    const uniqueUser = isUserUnique()
+
+    return (userValid && passwordValid && samePasswords && uniqueUser)
   }
 
   const isUserUnique = () => {
     const allUsers = store.getState().users;
 
     const user = allUsers.find(user => user.username === username)
-    if (Object.keys(user).length !== 0) {
+    if (user && Object.keys(user).length !== 0) {
       setUserAlreadyTaken(true) 
       return false 
     } else {
@@ -93,7 +94,7 @@ const Registration = ({ dispatch }) => {
             placeholder="Enter password"
             onChange={(e) => setPassword1(e.target.value)}
           />
-          { !passwordValid ? <span className="text-danger">Please enter minimum 3 symbols for passwords.</span> : null }
+          { !passwordValid ? <span className="text-danger">Please enter minimum 4 symbols for passwords.</span> : null }
         </div>
         <div className="form-group">
           <label htmlFor="password2">Repeat Password</label>

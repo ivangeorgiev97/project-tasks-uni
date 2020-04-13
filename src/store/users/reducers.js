@@ -25,8 +25,9 @@ const users = (state = initialState.users, action) => {
           : user
       );
     case DELETE_USER:
-      // TODO -ADD Delete cascade for tasks
+      // TODO - Add Delete cascade for tasks
       return state.users.filter(user => user.id !== action.payload);
+    // TODO - Update setCurrentUser functionality 
     case SET_CURRENT_USER:
       state.currentUser = action.payload;
       return state;

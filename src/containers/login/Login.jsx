@@ -1,35 +1,56 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { useStore } from "react-redux";
+import { validateUsername, validatePassword } from "../../validation/userValidation";
 // import { setCurrentUser } from "../../store/users/actions"
 
 const Login = ({ dispatch }) => {
   const store = useStore();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [userValid, setUserValid] = useState(true);
+  const [passwordValid, setPasswordValid] = useState(true);
   const [userFound, setUserFound] = useState(false);
 
   const handleLoginSubmit = (evt) => {
     evt.preventDefault();
     // TODO - remove userFound from this conditonal here and update login funcitonality
-    if (!userFound && !checkUsernameAndPassword) return;
+    if (!userFound && !validateLoginForm) return;
+  };
+
+  const validateLoginForm = () => {
+    if (!validateUsername(username)) {
+      setUserValid(false)
+    } else {
+      setUserValid(true)
+    }
+
+    if (!validatePassword(password)) {
+      setPasswordValid(false)
+    } else {
+      setPasswordValid(true)
+    }
+
+    const checkUserAndPassword = checkUsernameAndPassword();
+
+    return (userValid && passwordValid && checkUserAndPassword)
   };
 
   const checkUsernameAndPassword = () => {
     const allUsers = store.getState().users;
-
     const user = allUsers.find(
       (user) => user.username === username && user.password === password
     );
-    if (Object.keys(user).length !== 0) {
-      setUserFound(true);
+
+    if (Object.keys(user).length === 0) {
+      setUserFound(false);
       return true;
     } else {
-      setUserFound(false);
+      setUserFound(true);
     }
 
     return false;
-  };
+  }
 
   return (
     <section>
