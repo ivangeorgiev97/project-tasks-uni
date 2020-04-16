@@ -53,7 +53,8 @@ const Registration = ({ dispatch }) => {
   }
 
   const isUserUnique = () => {
-    const allUsers = store.getState().users;
+    // TODO - Check why this holds users as separate objects and then also in separate array with users, is it because of persistance
+    const allUsers = store.getState().users.users;
 
     const user = allUsers.find(user => user.username === username)
     if (user && Object.keys(user).length !== 0) {

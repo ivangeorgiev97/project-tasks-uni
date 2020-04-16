@@ -14,8 +14,10 @@ const Login = ({ dispatch }) => {
 
   const handleLoginSubmit = (evt) => {
     evt.preventDefault();
-    // TODO - remove userFound from this conditonal here and update login funcitonality
-    if (!userFound && !validateLoginForm) return;
+    // If forms are not valid or user is not unique display messages for fields and do not dispatch action
+    if (!validateLoginForm()) return;
+
+    // TODO - update login functionality
   };
 
   const validateLoginForm = () => {
@@ -31,9 +33,9 @@ const Login = ({ dispatch }) => {
       setPasswordValid(true)
     }
 
-    const checkUserAndPassword = checkUsernameAndPassword();
+    setUserFound(checkUsernameAndPassword());
 
-    return (userValid && passwordValid && checkUserAndPassword)
+    return (userValid && passwordValid && userFound)
   };
 
   const checkUsernameAndPassword = () => {
@@ -67,6 +69,7 @@ const Login = ({ dispatch }) => {
             placeholder="Enter username"
             onChange={(e) => setUsername(e.target.value)}
           />
+          { !userValid ? <span className="text-danger">Please enter minimum 3 symbols for user.</span> : null }
         </div>
         <div className="form-group">
           <label htmlFor="password">Password</label>
@@ -78,6 +81,7 @@ const Login = ({ dispatch }) => {
             placeholder="Enter password"
             onChange={(e) => setPassword(e.target.value)}
           />
+          { !passwordValid ? <span className="text-danger">Please enter minimum 4 symbols for passwords.</span> : null }
         </div>
         <button type="submit" className="btn btn-primary">
           Login
