@@ -29,37 +29,17 @@ const Registration = ({ dispatch }) => {
   };
 
   const validateRegistrationForm = () => {
-    if (!validateUsername(username)) {
-      setUserValid(false)
-    } else {
-      setUserValid(true)
-    }
-
-    if (!validatePassword(password1)) {
-      setPasswordValid(false)
-    } else {
-      setPasswordValid(true)
-    }
-
-    if (password1 !== password2) {
-      setSamePasswords(false)
-    } else {
-      setSamePasswords(true)
-    }
-
-    const uniqueUser = isUserUnique()
-
-    return (userValid && passwordValid && samePasswords && uniqueUser)
+    return (validateUsername(username) && validatePassword(password1) && password1 === password2 && isUserUnique())
   }
 
   const isUserUnique = () => {
-    // TODO - Check why this holds users as separate objects and then also in separate array with users, is it because of persistance
+    // TODO - Check why this holds users as separate objects and then also in separate array with users, is it because of persistance configuration or something else
     const allUsers = store.getState().users.users;
 
     const user = allUsers.find(user => user.username === username)
     if (user && Object.keys(user).length !== 0) {
-      setUserAlreadyTaken(true) 
-      return false 
+      setUserAlreadyTaken(true)
+      return false
     } else {
       setUserAlreadyTaken(false)
     }
@@ -81,9 +61,10 @@ const Registration = ({ dispatch }) => {
             name="username"
             placeholder="Enter username"
             onChange={(e) => setUsername(e.target.value)}
+            onBlur={(e) => { setUserValid(validateUsername(e.target.value)); setUserAlreadyTaken(isUserUnique()) }}
           />
-          { !userValid ? <span className="text-danger">Please enter minimum 3 symbols for user.</span> : null }
-          { userAlreadyTaken ? <span className="text-danger">User must be unique</span> : null }
+          {!userValid ? <span className="text-danger">Please enter minimum 3 symbols for user.</span> : null}
+          {userAlreadyTaken ? <span className="text-danger">User must be unique</span> : null}
         </div>
         <div className="form-group">
           <label htmlFor="password1">Password</label>
@@ -94,8 +75,9 @@ const Registration = ({ dispatch }) => {
             name="password1"
             placeholder="Enter password"
             onChange={(e) => setPassword1(e.target.value)}
+            onBlur={(e) => { setPasswordValid(validatePassword(e.target.value)); }}
           />
-          { !passwordValid ? <span className="text-danger">Please enter minimum 4 symbols for passwords.</span> : null }
+          {!passwordValid ? <span className="text-danger">Please enter minimum 4 symbols for passwords.</span> : null}
         </div>
         <div className="form-group">
           <label htmlFor="password2">Repeat Password</label>
@@ -106,10 +88,15 @@ const Registration = ({ dispatch }) => {
             name="password2"
             placeholder="Repeat password"
             onChange={(e) => setPassword2(e.target.value)}
+            onBlur={(e) => { setSamePasswords(password1 === password2) }}
           />
-          { !samePasswords ? <span className="text-danger">Password fields should be same.</span> : null }
+          {!samePasswords ? <span className="text-danger">Password fields should be same.</span> : null}
         </div>
-        <button type="submit" className="btn btn-primary">
+        <button
+          type="submit"
+          className="btn btn-primary"
+          onClick={() => { setUserValid(validateUsername(username)); setPasswordValid(validatePassword(password1)); setSamePasswords(password1 === password2); setUserAlreadyTaken(isUserUnique()) }}
+        >
           Register
         </button>
       </form>

@@ -2,9 +2,38 @@ import React from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
+import { useStore } from "react-redux";
 
-const Header = ({ headerTitle, leftLinks, rightLinks }) => {
+const Header = () => {
+  const store = useStore();
+  const user = store.getState().users.currentUser;
+  const headerTitle = "Tasks uni project";
+  const leftLinks = [
+      // { id: 1, path: "/", text: "Home", isVisible: true },
+      { id: 2, path: "/tasks", text: "Tasks", isVisible: true },
+      { id: 3, path: "/users", text: "Users", isVisible: true },
+    ];
+   const rightLinks = [
+      {
+        id: 4,
+        path: "/registration",
+        text: "Registration",
+        isVisible: user && Object.keys(user).length === 0,
+      },
+      {
+        id: 5,
+        path: "/login",
+        text: "Login",
+        isVisible: user && Object.keys(user).length === 0,
+      },
+      {
+        id: 5,
+        path: "/logout",
+        text: "Logout",
+        isVisible: user && Object.keys(user).length !== 0,
+      },
+    ];
+
   const finalLeftLinks = leftLinks.map((leftLink) =>
     leftLink.isVisible ? (
       <Link key={leftLink.id} className="nav-link" to={leftLink.path}>
@@ -35,26 +64,6 @@ const Header = ({ headerTitle, leftLinks, rightLinks }) => {
       </Navbar>
     </header>
   );
-};
-
-Header.propTypes = {
-  headerTitle: PropTypes.string.isRequired,
-  leftLinks: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      path: PropTypes.string.isRequired,
-      text: PropTypes.string.isRequired,
-      isVisible: PropTypes.bool.isRequired,
-    }).isRequired
-  ),
-  rightLinks: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      path: PropTypes.string.isRequired,
-      text: PropTypes.string.isRequired,
-      isVisible: PropTypes.bool.isRequired,
-    }).isRequired
-  ),
 };
 
 export default Header;

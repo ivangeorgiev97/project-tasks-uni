@@ -8,22 +8,22 @@ import {
 /*
  * User actions
  */
-export const addUser = (user) => ({
+export const addUser = user => ({
   type: ADD_USER,
-  payload: user,
+  payload: user
 });
 
-export const updateUser = (user) => ({
+export const updateUser = user => ({
   type: UPDATE_USER,
-  payload: user,
+  payload: user
 });
 
-export const deleteUser = (id) => ({
+export const deleteUser = id => ({
   type: DELETE_USER,
   id,
 });
 
-export const setCurrentUser = (user) => ({
+export const setCurrentUser = user => ({
   type: SET_CURRENT_USER,
-  payload: user,
+  payload: user
 });

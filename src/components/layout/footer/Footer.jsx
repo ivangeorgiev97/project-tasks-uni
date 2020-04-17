@@ -1,6 +1,6 @@
 import React from "react";
-import PropTypes from "prop-types";
 
+const content = "Ivan Georgiev - 1601681030";
 const footerStyle = {
   position: "fixed",
   bottom: 0,
@@ -10,16 +10,12 @@ const footerStyle = {
   textAlign: "center"
 };
 
-const Footer = ({ content }) => {
+const Footer = () => {
   return (
     <footer style={footerStyle} className="Footer">
       { content }
     </footer>
   );
 };
-
-Footer.propTypes = {
-  content: PropTypes.string.isRequired
-}
 
 export default Footer;

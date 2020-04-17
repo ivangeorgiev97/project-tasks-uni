@@ -1,57 +1,59 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { useStore } from "react-redux";
+import { useHistory } from 'react-router-dom';
 import { validateUsername, validatePassword } from "../../validation/userValidation";
-// import { setCurrentUser } from "../../store/users/actions"
+import { setCurrentUser } from "../../store/users/actions";
 
 const Login = ({ dispatch }) => {
   const store = useStore();
+  const currentActiveUser = store.getState().users.currentUser;
+  const history = useHistory();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [userValid, setUserValid] = useState(true);
   const [passwordValid, setPasswordValid] = useState(true);
-  const [userFound, setUserFound] = useState(false);
+  const [userFound, setUserFound] = useState(true);
+  // const [activeUser, setActiveUser] = useState({}); 
 
-  const handleLoginSubmit = (evt) => {
+  let activeUser = {};
+
+  useEffect(() => {
+    // Check if user is logged in and redicrect to main page if the user is logged
+    if (currentActiveUser && Object.keys(currentActiveUser).length !== 0) {
+      // Redirect user to main page
+      history.push('/')
+    }
+  });
+
+  const handleLoginSubmit = evt => {
     evt.preventDefault();
     // If forms are not valid or user is not unique display messages for fields and do not dispatch action
     if (!validateLoginForm()) return;
 
-    // TODO - update login functionality
+    dispatch(setCurrentUser(activeUser));
+    window.location.reload()
   };
 
   const validateLoginForm = () => {
-    if (!validateUsername(username)) {
-      setUserValid(false)
-    } else {
-      setUserValid(true)
-    }
-
-    if (!validatePassword(password)) {
-      setPasswordValid(false)
-    } else {
-      setPasswordValid(true)
-    }
-
-    setUserFound(checkUsernameAndPassword());
-
-    return (userValid && passwordValid && userFound)
+    return (validateUsername(username) && validatePassword(password) && checkUsernameAndPassword())
   };
 
   const checkUsernameAndPassword = () => {
-    const allUsers = store.getState().users;
+    // TODO - Check why this holds users as separate objects and then also in separate array with users, is it because of persistance configuration or something else
+    const allUsers = store.getState().users.users;
     const user = allUsers.find(
       (user) => user.username === username && user.password === password
     );
 
-    if (Object.keys(user).length === 0) {
-      setUserFound(false);
-      return true;
+    if (!user || Object.keys(user).length === 0) {
+      activeUser = {}
+      return false;
     } else {
-      setUserFound(true);
+      activeUser = user
     }
 
-    return false;
+    return true;
   }
 
   return (
@@ -68,8 +70,9 @@ const Login = ({ dispatch }) => {
             name="username"
             placeholder="Enter username"
             onChange={(e) => setUsername(e.target.value)}
+            onBlur={(e) => setUserValid(validateUsername(e.target.value))}
           />
-          { !userValid ? <span className="text-danger">Please enter minimum 3 symbols for user.</span> : null }
+          {!userValid ? <span className="text-danger">Please enter minimum 3 symbols for user.</span> : null}
         </div>
         <div className="form-group">
           <label htmlFor="password">Password</label>
@@ -80,10 +83,18 @@ const Login = ({ dispatch }) => {
             name="password"
             placeholder="Enter password"
             onChange={(e) => setPassword(e.target.value)}
+            onBlur={(e) => setPasswordValid(validatePassword(e.target.value))}
           />
-          { !passwordValid ? <span className="text-danger">Please enter minimum 4 symbols for passwords.</span> : null }
+          {!passwordValid ? <span className="text-danger">Please enter minimum 4 symbols for passwords.</span> : null}
         </div>
-        <button type="submit" className="btn btn-primary">
+        <div>
+          {!userFound ? <span className="text-danger">User was not found</span> : null}
+        </div>
+        <button 
+        type="submit" 
+        className="btn btn-primary"
+        onClick={() => {setUserValid(validateUsername(username)); setPasswordValid(validatePassword(password)); setUserFound(checkUsernameAndPassword())}}
+        >
           Login
         </button>
       </form>
