@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { connect } from "react-redux";
 import { useStore } from "react-redux";
 import { useHistory } from 'react-router-dom';
-import { setCurrentUser } from "../../store/users/actions";
+import { setCurrentUser } from "../../../store/users/actions";
 
 const Logout = ({ dispatch }) => {
     const store = useStore();
@@ -11,7 +11,7 @@ const Logout = ({ dispatch }) => {
 
     useEffect(() => {
         // Check if user is logged in and redicrect to login page if the user is not logged
-        if (currentActiveUser && Object.keys(currentActiveUser).length === 0) {
+        if (!currentActiveUser || Object.keys(currentActiveUser).length === 0) {
           // Redirect user to login page
           history.push('/login')
         }

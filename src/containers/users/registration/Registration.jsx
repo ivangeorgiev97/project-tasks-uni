@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { connect, useStore } from "react-redux";
 import { useHistory } from 'react-router-dom';
-import { addUser } from "../../store/users/actions";
-import { validateUsername, validatePassword } from "../../validation/userValidation";
+import { addUser } from "../../../store/users/actions";
+import { validateUsername, validatePassword } from "../../../validation/userValidation";
 
 const Registration = ({ dispatch }) => {
   const store = useStore();
@@ -28,6 +28,7 @@ const Registration = ({ dispatch }) => {
     history.push('/login')
   };
 
+  // TODO - Research how to call the validation once on submit
   const validateRegistrationForm = () => {
     return (validateUsername(username) && validatePassword(password1) && password1 === password2 && isUserUnique())
   }

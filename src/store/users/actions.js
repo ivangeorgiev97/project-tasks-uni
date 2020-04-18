@@ -20,7 +20,7 @@ export const updateUser = user => ({
 
 export const deleteUser = id => ({
   type: DELETE_USER,
-  id,
+  payload: id
 });
 
 export const setCurrentUser = user => ({

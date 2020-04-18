@@ -29,7 +29,7 @@ const users = (state = initialState, action) => {
             ? {
                 id: action.payload.id,
                 username: action.payload.username,
-                password: action.payload.password,
+                password: action.payload.password && action.payload.password.length >= 3 ? action.payload.password : user.password,
                 role: action.payload.role,
               }
             : user
@@ -37,6 +37,7 @@ const users = (state = initialState, action) => {
       };
     case DELETE_USER:
       // TODO - Add Delete cascade for tasks
+      // TODO - Logout user if user removes the current logged in user
       return {
         ...state,
         users: state.users.filter((user) => user.id !== action.payload)
