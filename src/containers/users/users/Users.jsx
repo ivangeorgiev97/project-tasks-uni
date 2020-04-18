@@ -1,13 +1,18 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, connect } from "react-redux";
 import Button from "react-bootstrap/Button";
 import UsersTable from "../../../components/users/table/UsersTable"
 import { Link } from "react-router-dom";
+import { deleteUser } from "../../../store/users/actions";
 
-const Users = () => {
+const Users = ({dispatch}) => {
   // TODO - Check why this holds users as separate objects and then also in separate array with users, is it because of persistance configuration or something else
   const users = useSelector(state => state.users.users)
   const currentUser = useSelector(state => state.users.currentUser)
+
+  const onDeleteUser = (id) => {
+    if (window.confirm('Are you sure you want to delete this user')) dispatch(deleteUser(parseInt(id)));
+  }
 
   return (
     <section className="Users">
@@ -17,6 +22,7 @@ const Users = () => {
         <UsersTable 
           users={users}
           currentUser={currentUser}
+          onDeleteUser={onDeleteUser}
         />
     </section>
   );
@@ -39,4 +45,4 @@ const mapDispatchToProps = dispatch => {
   }
 } */
 
-export default Users
+export default connect()(Users)

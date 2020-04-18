@@ -37,6 +37,7 @@ const users = (state = initialState, action) => {
       };
     case DELETE_USER:
       // TODO - Add Delete cascade for tasks
+      // TODO - Logout user if user removes the current logged in user
       return {
         ...state,
         users: state.users.filter((user) => user.id !== action.payload)
