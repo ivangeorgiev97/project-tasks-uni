@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { connect } from "react-redux";
 import { useStore } from "react-redux";
 import { useHistory } from 'react-router-dom';
-import { setCurrentUser } from "../../store/users/actions";
+import { setCurrentUser } from "../../../store/users/actions";
 
 const Logout = ({ dispatch }) => {
     const store = useStore();
