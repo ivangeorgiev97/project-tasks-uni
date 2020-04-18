@@ -29,7 +29,7 @@ const users = (state = initialState, action) => {
             ? {
                 id: action.payload.id,
                 username: action.payload.username,
-                password: action.payload.password,
+                password: action.payload.password && action.payload.password.length >= 3 ? action.payload.password : user.password,
                 role: action.payload.role,
               }
             : user

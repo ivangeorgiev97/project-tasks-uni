@@ -11,6 +11,8 @@ import Header from "./components/layout/header/Header";
 import Footer from "./components/layout/footer/Footer";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Logout from "./containers/users/logout/Logout";
+import AddUser from "./containers/users/add/AddUser";
+import EditUser from "./containers/users/edit/EditUser";
 
 function App() {
   return (
@@ -24,6 +26,12 @@ function App() {
             </Route>
             <Route path="/users">
               <Users />
+            </Route>
+            <Route path="/addUser">
+              <AddUser />
+            </Route>
+            <Route path="/editUser/:userId">
+              <EditUser />
             </Route>
             <Route path="/registration">
               <Registration />

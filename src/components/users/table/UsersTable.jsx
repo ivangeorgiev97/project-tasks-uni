@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
+import { Link } from "react-router-dom";
 
 const UsersTable = ({ users, currentUser }) => {
     const finalUsers = users.map((user) =>
@@ -10,7 +11,7 @@ const UsersTable = ({ users, currentUser }) => {
                 <td>{user.id}</td>
                 <td>{user.username}</td>
                 <td>{user.role}</td>
-                <td><Button variant="secondary">Edit</Button></td>
+                <td><Link className="text-decoration-none" to={`/editUser/${user.id}`}><Button variant="secondary">Edit</Button></Link></td>
                 <td><Button variant="danger">Delete</Button></td>
             </tr>
         ) : (

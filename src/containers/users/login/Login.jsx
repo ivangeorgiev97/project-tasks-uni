@@ -19,7 +19,7 @@ const Login = ({ dispatch }) => {
   let activeUser = {};
 
   useEffect(() => {
-    // Check if user is logged in and redicrect to main page if the user is logged
+    // Check if user is logged in and redirect to main page if the user is logged
     if (currentActiveUser && Object.keys(currentActiveUser).length !== 0) {
       // Redirect user to main page
       history.push('/')
