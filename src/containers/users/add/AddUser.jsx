@@ -42,6 +42,7 @@ const AddUser = ({ dispatch }) => {
     return (validateUsername(username) && validatePassword(password1) && password1 === password2 && isUserUnique())
   }
 
+  // TODO - Research how to export same functionality of components
   const isUserUnique = () => {
     // TODO - Check why this holds users as separate objects and then also in separate array with users, is it because of persistance configuration or something else
     const allUsers = store.getState().users.users;
@@ -71,7 +72,7 @@ const AddUser = ({ dispatch }) => {
             name="username"
             placeholder="Enter username"
             onChange={(e) => setUsername(e.target.value)}
-            onBlur={(e) => { setUserValid(validateUsername(e.target.value) && isUserUnique()) }}
+            onBlur={(e) => { setUserValid(validateUsername(e.target.value)); isUserUnique() }}
           />
           {!userValid && !userAlreadyTaken ? <span className="text-danger">Please enter minimum 3 symbols for user.</span> : null}
           {userAlreadyTaken ? <span className="text-danger">Username must be unique.</span> : null}
@@ -105,7 +106,7 @@ const AddUser = ({ dispatch }) => {
         <button
           type="submit"
           className="btn btn-primary"
-          onClick={() => { setUserValid(validateUsername(username)); setPasswordValid(validatePassword(password1)); setSamePasswords(password1 === password2); setUserAlreadyTaken(isUserUnique()) }}
+          onClick={() => { setUserValid(validateUsername(username)); setPasswordValid(validatePassword(password1)); setSamePasswords(password1 === password2); isUserUnique() }}
         >
           Add user
         </button>

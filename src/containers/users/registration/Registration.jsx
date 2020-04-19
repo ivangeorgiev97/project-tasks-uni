@@ -33,10 +33,10 @@ const Registration = ({ dispatch }) => {
     return (validateUsername(username) && validatePassword(password1) && password1 === password2 && isUserUnique())
   }
 
+  // TODO - Research how to export same functionality of components
   const isUserUnique = () => {
     // TODO - Check why this holds users as separate objects and then also in separate array with users, is it because of persistance configuration or something else
     const allUsers = store.getState().users.users;
-
     const user = allUsers.find(user => user.username === username)
     if (user && Object.keys(user).length !== 0) {
       setUserAlreadyTaken(true)
@@ -61,8 +61,9 @@ const Registration = ({ dispatch }) => {
             aria-describedby="username"
             name="username"
             placeholder="Enter username"
+            required
             onChange={(e) => setUsername(e.target.value)}
-            onBlur={(e) => { setUserValid(validateUsername(e.target.value)); setUserAlreadyTaken(isUserUnique()) }}
+            onBlur={(e) => { setUserValid(validateUsername(e.target.value)); isUserUnique() }}
           />
           {!userValid ? <span className="text-danger">Please enter minimum 3 symbols for user.</span> : null}
           {userAlreadyTaken ? <span className="text-danger">User must be unique</span> : null}
@@ -75,6 +76,7 @@ const Registration = ({ dispatch }) => {
             id="password1"
             name="password1"
             placeholder="Enter password"
+            required
             onChange={(e) => setPassword1(e.target.value)}
             onBlur={(e) => { setPasswordValid(validatePassword(e.target.value)); }}
           />
@@ -88,6 +90,7 @@ const Registration = ({ dispatch }) => {
             id="password2"
             name="password2"
             placeholder="Repeat password"
+            required
             onChange={(e) => setPassword2(e.target.value)}
             onBlur={(e) => { setSamePasswords(password1 === password2) }}
           />
@@ -96,7 +99,7 @@ const Registration = ({ dispatch }) => {
         <button
           type="submit"
           className="btn btn-primary"
-          onClick={() => { setUserValid(validateUsername(username)); setPasswordValid(validatePassword(password1)); setSamePasswords(password1 === password2); setUserAlreadyTaken(isUserUnique()) }}
+          onClick={() => { setUserValid(validateUsername(username)); setPasswordValid(validatePassword(password1)); setSamePasswords(password1 === password2); isUserUnique() }}
         >
           Register
         </button>

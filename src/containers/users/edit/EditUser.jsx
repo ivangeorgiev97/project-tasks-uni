@@ -29,12 +29,14 @@ const EditUser = ({ dispatch }) => {
   // const [samePasswords, setSamePasswords] = useState(true);
 
   useEffect(() => {
-    // Check if user is logged in and redirect to main page if the user is logged
+    // Check if user is logged in and redirect to main page if the user is not logged
     if (
       !currentActiveUser ||
       !userId ||
-      isNaN(userId) ||
+      isNaN(parseInt(userId)) ||
       userId <= 0 ||
+      !user ||
+      Object.keys(user).length === 0 ||
       Object.keys(currentActiveUser).length === 0 ||
       currentActiveUser.role !== "admin"
     ) {
@@ -42,15 +44,9 @@ const EditUser = ({ dispatch }) => {
       history.push("/");
     }
 
-    // TODO - Check why this holds users as separate objects and then also in separate array with users, is it because of persistance configuration or something else
-    if (user && Object.keys(user).length !== 0) {
-      setUsername(user.username);
-      setRole(user.role);
-    } else {
-      // Redirect user to users page
-      history.push("/users");
-    }
-  }, [currentActiveUser, userId, store, history, user]);
+    setUsername(user.username);
+    setRole(user.role);
+  }, [currentActiveUser, userId, user, history]);
 
   const handleEditUserSubmit = (evt) => {
     evt.preventDefault();
@@ -124,7 +120,7 @@ const EditUser = ({ dispatch }) => {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             onBlur={(e) => {
-              setUserValid(validateUsername(e.target.value) && isUserUnique());
+              setUserValid(validateUsername(e.target.value)); isUserUnique()
             }}
           />
           {!userValid && !userAlreadyTaken ? (
@@ -143,7 +139,7 @@ const EditUser = ({ dispatch }) => {
             id="changePassword"
             name="changePassword"
             checked={changePassword}
-            onChange={(e) => setChangePassword(!changePassword)}
+            onChange={() => setChangePassword(!changePassword)}
           />
           <label className="form-check-label" htmlFor="changePassword">
             Show change password field
@@ -197,6 +193,7 @@ const EditUser = ({ dispatch }) => {
             className="form-control"
             id="role"
             name="role"
+            value={role}
             onChange={(e) => {
               setRole(e.target.value);
             }}
