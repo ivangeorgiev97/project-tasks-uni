@@ -33,7 +33,7 @@ const EditUser = ({ dispatch }) => {
     if (
       !currentActiveUser ||
       !userId ||
-      isNaN(userId) ||
+      isNaN(parseInt(userId)) ||
       userId <= 0 ||
       Object.keys(currentActiveUser).length === 0 ||
       currentActiveUser.role !== "admin"

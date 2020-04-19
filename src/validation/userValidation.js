@@ -1,7 +1,7 @@
 export const validateUsername = username => {
-  return username ? username.length >= 3 : false
+  return (username && username.trim().length >= 3)
 };
 
 export const validatePassword = password => {
-  return password ? password.length >= 4 : false
+  return (password && password.trim().length >= 4)
 };

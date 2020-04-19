@@ -14,7 +14,7 @@ const users = (state = initialState, action) => {
         users: [
           ...state.users,
           {
-            id: state.users.length + 1,
+            id: (state.users && state.users.length > 0) ? state.users[state.users.length-1].id + 1 : 1,
             username: action.payload.username,
             password: action.payload.password,
             role: "user",

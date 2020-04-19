@@ -50,12 +50,12 @@ UsersTable.propTypes = {
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       username: PropTypes.string.isRequired,
-      role: PropTypes.string.isRequired,
+      role: PropTypes.string.isRequired
     }).isRequired
   ),
   currentUser: PropTypes.shape({
     id: PropTypes.number,
-    role: PropTypes.string,
+    role: PropTypes.string
   }),
   onDeleteUser: PropTypes.func
 };

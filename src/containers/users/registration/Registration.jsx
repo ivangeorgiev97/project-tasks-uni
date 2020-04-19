@@ -61,6 +61,7 @@ const Registration = ({ dispatch }) => {
             aria-describedby="username"
             name="username"
             placeholder="Enter username"
+            required
             onChange={(e) => setUsername(e.target.value)}
             onBlur={(e) => { setUserValid(validateUsername(e.target.value)); setUserAlreadyTaken(isUserUnique()) }}
           />
@@ -75,6 +76,7 @@ const Registration = ({ dispatch }) => {
             id="password1"
             name="password1"
             placeholder="Enter password"
+            required
             onChange={(e) => setPassword1(e.target.value)}
             onBlur={(e) => { setPasswordValid(validatePassword(e.target.value)); }}
           />
@@ -88,6 +90,7 @@ const Registration = ({ dispatch }) => {
             id="password2"
             name="password2"
             placeholder="Repeat password"
+            required
             onChange={(e) => setPassword2(e.target.value)}
             onBlur={(e) => { setSamePasswords(password1 === password2) }}
           />
