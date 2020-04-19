@@ -12,7 +12,7 @@ const TasksTable = ({ tasks, currentUser, onDeleteTask }) => {
         <td>{task.title}</td>
         <td>{task.description}</td>
         <td>{task.estimation}</td>
-        <td>{task.status ? <span>Completed</span> : <span>Not completed</span> }</td>
+        <td>{task.isCompleted ? <span>Completed</span> : <span>Not completed</span> }</td>
         {/* <td>{task.userId}</td> */}
         <td>
           <Link className="text-decoration-none" to={`/editTask/${task.id}`}>
@@ -29,7 +29,7 @@ const TasksTable = ({ tasks, currentUser, onDeleteTask }) => {
         <td>{task.title}</td>
         <td>{task.description}</td>
         <td>{task.estimation}</td>
-        <td>{task.status ? <span>Completed</span> : <span>Not completed</span> }</td>
+        <td>{task.isCompleted ? <span>Completed</span> : <span>Not completed</span> }</td>
         {/* <td>{task.userId}</td> */}
         <td>Not editable</td>
         <td>Not removeable</td>

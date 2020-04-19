@@ -24,13 +24,13 @@ const AddTask = ({ dispatch }) => {
     }
   });
 
-  const handleAddUserSubmit = evt => {
+  const handleAddTaskSubmit = evt => {
     evt.preventDefault();
 
-    // If forms are not valid or user is not unique display messages for fields and do not dispatch action
+    // If forms are not valid do not dispatch action
     if (!validateAddTaskForm()) return;
 
-    // If form is validated dispatch addUser action
+    // If form is validated dispatch addTask action
     dispatch(addTask({ title: title, description: description, estimation: estimation, isCompleted: false, userId: currentActiveUser.id }));
 
     // Redirect to tasks
@@ -45,7 +45,7 @@ const AddTask = ({ dispatch }) => {
   return (
     <section>
       <h3>Add task</h3>
-      <form onSubmit={handleAddUserSubmit}>
+      <form onSubmit={handleAddTaskSubmit}>
         <div className="form-group">
           <label htmlFor="title">Title</label>
           <input

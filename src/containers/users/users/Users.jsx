@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import UsersTable from "../../../components/users/table/UsersTable";
 import { Link } from "react-router-dom";
 import { deleteUser } from "../../../store/users/actions";
+import { deleteTasks } from "../../../store/tasks/actions";
 
 const Users = ({ dispatch }) => {
   // TODO - Check why this holds users as separate objects and then also in separate array with users, is it because of persistance configuration or something else
@@ -24,6 +25,7 @@ const Users = ({ dispatch }) => {
       )
     )
       dispatch(deleteUser(parseInt(id)));
+      dispatch(deleteTasks(parseInt(id)))
   };
 
   return (

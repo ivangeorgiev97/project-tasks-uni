@@ -14,7 +14,7 @@ import Logout from "./containers/users/logout/Logout";
 import AddUser from "./containers/users/add/AddUser";
 import EditUser from "./containers/users/edit/EditUser";
 import AddTask from "./containers/tasks/add/AddTask";
-// import EditTask from "./containers/tasks/edit/EditTask";
+import EditTask from "./containers/tasks/edit/EditTask";
 
 function App() {
   return (
@@ -29,9 +29,9 @@ function App() {
             <Route path="/addTask">
               <AddTask />
             </Route>
-            {/*             <Route path="/editTask/:taskId">
+           <Route path="/editTask/:taskId">
               <EditTask />
-            </Route> */}
+            </Route> 
             <Route path="/users">
               <Users />
             </Route>
