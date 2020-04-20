@@ -31,13 +31,12 @@ const AddTask = ({ dispatch }) => {
     if (!validateAddTaskForm()) return;
 
     // If form is validated dispatch addTask action
-    dispatch(addTask({ title: title, description: description, estimation: estimation, isCompleted: false, userId: currentActiveUser.id }));
+    dispatch(addTask({ title: title, description: description, estimation: parseFloat(estimation), isCompleted: false, userId: currentActiveUser.id }));
 
     // Redirect to tasks
     history.push('/tasks')
   };
 
-  // TODO - Research how to call the validation once on submit
   const validateAddTaskForm = () => {
     return (validateTitle(title) && validateDescription(description) && validateEstimation(estimation))
   }
@@ -78,6 +77,7 @@ const AddTask = ({ dispatch }) => {
           <label htmlFor="estimation">Estimation</label>
           <input
             type="number"
+            step="any"
             className="form-control"
             id="estimation"
             name="estimation"

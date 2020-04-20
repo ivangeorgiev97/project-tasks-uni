@@ -7,12 +7,10 @@ import { deleteUser } from "../../../store/users/actions";
 import { deleteTasks } from "../../../store/tasks/actions";
 
 const Users = ({ dispatch }) => {
-  // TODO - Check why this holds users as separate objects and then also in separate array with users, is it because of persistance configuration or something else
   const users = useSelector((state) => state.users.users);
   const currentUser = useSelector((state) => state.users.currentUser);
 
   const onDeleteUser = id => {
-  // TODO - Check if user with this id exists
    const user = users.find(user => user.id === parseInt(id))
    if (!user) return;
 
@@ -43,21 +41,5 @@ const Users = ({ dispatch }) => {
     </section>
   );
 };
-
-/* 
-TODO- they can also be added in connect()
-const mapStateToProps = state => {
-  return {
-      // TODO - Check why this holds users as separate objects and then also in separate array with users, is it because of persistance configuration or something else
-      users: state.users.users,
-      currentActiveUser: state.users.currentActiveUser
-  }
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-      addUser: user => dispatch(addUser(user)) 
-  }
-} */
 
 export default connect()(Users);

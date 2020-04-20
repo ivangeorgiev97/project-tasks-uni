@@ -8,7 +8,6 @@ const EditTask = ({ dispatch }) => {
   const history = useHistory();
   const { taskId } = useParams();
   const currentActiveUser = useSelector((state) => state.users.currentUser);
-  // TODO - Check why this holds tasks as separate objects and then also in separate array with tasks, is it because of persistance configuration or something else
   const tasks = useSelector((state) => state.tasks.tasks);
   const task = tasks.find(task => task.id === parseInt(taskId))
   const [title, setTitle] = useState("");
@@ -52,13 +51,12 @@ const EditTask = ({ dispatch }) => {
     if (!validateAddTaskForm()) return;
 
     // If form is validated dispatch addUser action
-    dispatch(updateTask({id: parseInt(taskId), title: title, description: description, estimation: estimation, isCompleted: isCompleted, userId: userId }));
+    dispatch(updateTask({id: parseInt(taskId), title: title, description: description, estimation: parseFloat(estimation), isCompleted: isCompleted, userId: userId }));
 
     // Redirect to tasks
     history.push('/tasks')
   };
 
-  // TODO - Research how to call the validation once on submit
   const validateAddTaskForm = () => {
     return (validateTitle(title) && validateDescription(description) && validateEstimation(estimation))
   }
@@ -101,6 +99,7 @@ const EditTask = ({ dispatch }) => {
           <label htmlFor="estimation">Estimation</label>
           <input
             type="number"
+            step="any"
             className="form-control"
             id="estimation"
             name="estimation"

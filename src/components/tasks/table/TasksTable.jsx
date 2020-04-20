@@ -57,7 +57,7 @@ const TasksTable = ({ tasks, currentUser, onDeleteTask }) => {
 };
 
 TasksTable.propTypes = {
-  Tasks: PropTypes.arrayOf(
+  tasks: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       title: PropTypes.string.isRequired,

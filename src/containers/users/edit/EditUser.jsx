@@ -68,13 +68,11 @@ const EditUser = ({ dispatch }) => {
     history.push("/users");
   };
 
-  // TODO - Research how to call the validation once on submit
   const validateupdateUserForm = () => {
     return validateUsername(username) && isUserUnique();
   };
 
   const isUserUnique = () => {
-    // TODO - Check why this holds users as separate objects and then also in separate array with users, is it because of persistance configuration or something else
     const checkUser = allUsers.find((user) => user.username === username);
 
     if (

@@ -35,13 +35,11 @@ const Login = ({ dispatch }) => {
     window.location.reload()
   };
 
-  // TODO - Research how to call the validation once on submit
   const validateLoginForm = () => {
     return (validateUsername(username) && validatePassword(password) && checkUsernameAndPassword())
   };
 
   const checkUsernameAndPassword = () => {
-    // TODO - Check why this holds users as separate objects and then also in separate array with users, is it because of persistance configuration or something else
     const allUsers = store.getState().users.users;
     const user = allUsers.find(
       (user) => user.username === username && user.password === password
