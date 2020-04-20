@@ -28,14 +28,11 @@ const Registration = ({ dispatch }) => {
     history.push('/login')
   };
 
-  // TODO - Research how to call the validation once on submit
   const validateRegistrationForm = () => {
     return (validateUsername(username) && validatePassword(password1) && password1 === password2 && isUserUnique())
   }
 
-  // TODO - Research how to export same functionality of components
   const isUserUnique = () => {
-    // TODO - Check why this holds users as separate objects and then also in separate array with users, is it because of persistance configuration or something else
     const allUsers = store.getState().users.users;
     const user = allUsers.find(user => user.username === username)
     if (user && Object.keys(user).length !== 0) {

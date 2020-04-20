@@ -6,12 +6,10 @@ import { Link } from "react-router-dom";
 import { deleteTask } from "../../../store/tasks/actions";
 
 const Tasks = ({ dispatch }) => {
-  // TODO - Check why this holds tasks as separate objects and then also in separate array with tasks, is it because of persistance configuration or something else
   const tasks = useSelector((state) => state.tasks.tasks);
   const currentUser = useSelector((state) => state.users.currentUser);
 
   const onDeleteTask = id => {
-    // TODO - Check if task userid is same
    const task = tasks.find(task => task.id === parseInt(id))
    if (!task) return;
 
@@ -41,21 +39,5 @@ const Tasks = ({ dispatch }) => {
     </section>
   );
 };
-
-/* 
-TODO- they can also be added in connect()
-const mapStateToProps = state => {
-  return {
-      // TODO - Check why this holds tasks as separate objects and then also in separate array with tasks, is it because of persistance configuration or something else
-      tasks: state.tasks.tasks,
-      currentActivetask: state.tasks.currentActivetask
-  }
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-      addtask: task => dispatch(addtask(task)) 
-  }
-} */
 
 export default connect()(Tasks);

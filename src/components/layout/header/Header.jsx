@@ -1,39 +1,10 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import { Link } from "react-router-dom";
-import { useStore } from "react-redux";
 
-const Header = () => {
-  const store = useStore();
-  const user = store.getState().users.currentUser;
-  const headerTitle = "Tasks uni project";
-  const leftLinks = [
-      // { id: 1, path: "/", text: "Home", isVisible: true },
-      { id: 2, path: "/tasks", text: "Tasks", isVisible: true },
-      { id: 3, path: "/users", text: "Users", isVisible: true },
-    ];
-   const rightLinks = [
-      {
-        id: 4,
-        path: "/registration",
-        text: "Registration",
-        isVisible: user && Object.keys(user).length === 0,
-      },
-      {
-        id: 5,
-        path: "/login",
-        text: "Login",
-        isVisible: user && Object.keys(user).length === 0,
-      },
-      {
-        id: 5,
-        path: "/logout",
-        text: "Logout",
-        isVisible: user && Object.keys(user).length !== 0,
-      },
-    ];
-
+const Header = ({ headerTitle, leftLinks, rightLinks, onLogout }) => {
   const finalLeftLinks = leftLinks.map((leftLink) =>
     leftLink.isVisible ? (
       <Link key={leftLink.id} className="nav-link" to={leftLink.path}>
@@ -42,10 +13,14 @@ const Header = () => {
     ) : null
   );
   const finalRightLinks = rightLinks.map((rightLink) =>
-    rightLink.isVisible ? (
+    rightLink.isVisible && !rightLink.isLogout ? (
       <Link key={rightLink.id} className="nav-link" to={rightLink.path}>
         {rightLink.text}
       </Link>
+    ) : rightLink.isVisible && rightLink.isLogout ? (
+      <span key={rightLink.id} className="nav-link btn" onClick={onLogout}>
+        {rightLink.text}
+      </span>
     ) : null
   );
 
@@ -55,15 +30,23 @@ const Header = () => {
         <Link className="navbar-brand" to="/">
           {headerTitle}
         </Link>
-        <Nav className="mr-auto">
-          {finalLeftLinks}
-        </Nav>
-        <Nav>
-          {finalRightLinks}
-        </Nav>
+        <Nav className="mr-auto">{finalLeftLinks}</Nav>
+        <Nav>{finalRightLinks}</Nav>
       </Navbar>
     </header>
   );
 };
+
+Header.propTypes = {
+  leftLinks: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      path: PropTypes.string.isRequired,
+      text: PropTypes.string.isRequired,
+      isVisible: PropTypes.bool.isRequired,
+      isLogout: PropTypes.bool.isRequired
+    })
+  )
+}
 
 export default Header;
