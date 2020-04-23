@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { connect, useStore } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { updateUser } from "../../../store/users/actions";
 import {
@@ -8,11 +8,10 @@ import {
 } from "../../../validation/userValidation";
 
 const EditUser = ({ dispatch }) => {
-  const store = useStore();
   const history = useHistory();
   const { userId } = useParams();
-  const currentActiveUser = store.getState().users.currentUser;
-  const allUsers = store.getState().users.users;
+  const currentActiveUser = useSelector((state) => state.currentUser);
+  const allUsers = useSelector((state) => state.users);
   const user = allUsers.find((user) => user.id === parseInt(userId));
   const [username, setUsername] = useState("");
   const [password1, setPassword1] = useState("");

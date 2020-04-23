@@ -6,8 +6,8 @@ import { Link } from "react-router-dom";
 import { deleteTask } from "../../../store/tasks/actions";
 
 const Tasks = ({ dispatch }) => {
-  const tasks = useSelector((state) => state.tasks.tasks);
-  const currentUser = useSelector((state) => state.users.currentUser);
+  const tasks = useSelector((state) => state.tasks);
+  const currentUser = useSelector((state) => state.currentUser);
 
   const onDeleteTask = id => {
    const task = tasks.find(task => task.id === parseInt(id))

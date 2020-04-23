@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
-import { useStore } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { useHistory } from 'react-router-dom';
 import { validateUsername, validatePassword } from "../../../validation/userValidation";
 import { setCurrentUser } from "../../../store/users/actions";
 
 const Login = ({ dispatch }) => {
-  const store = useStore();
-  const currentActiveUser = store.getState().users.currentUser;
+  const currentActiveUser = useSelector((state) => state.currentUser);
+  const allUsers = useSelector((state) => state.users);
   const history = useHistory();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -32,7 +31,7 @@ const Login = ({ dispatch }) => {
     if (!validateLoginForm()) return;
 
     dispatch(setCurrentUser(activeUser));
-    window.location.reload()
+    setTimeout(() => { window.location.href = '/' }, 120)
   };
 
   const validateLoginForm = () => {
@@ -40,7 +39,6 @@ const Login = ({ dispatch }) => {
   };
 
   const checkUsernameAndPassword = () => {
-    const allUsers = store.getState().users.users;
     const user = allUsers.find(
       (user) => user.username === username && user.password === password
     );
