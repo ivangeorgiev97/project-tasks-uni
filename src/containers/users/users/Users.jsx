@@ -26,6 +26,7 @@ const Users = ({ dispatch }) => {
       dispatch(deleteTasks(parseInt(id)));
       if (user.id === currentUser.id) {
         dispatch(setCurrentUser({}));
+        // Redirect to main page
         setTimeout(() => { window.location.href = '/' }, 120)
       }
     }
