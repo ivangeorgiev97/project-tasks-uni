@@ -1,11 +1,10 @@
 import React from "react";
-import { useStore, connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { setCurrentUser } from "../../../../store/users/actions";
 import HeaderLayout from "../../../../components/layout/header/Header";
 
 const Header = ({ dispatch }) => {
-  const store = useStore();
-  const user = store.getState().users.currentUser;
+  const user = useSelector((state) => state.currentUser);
   const headerTitle = "Tasks uni project";
   const leftLinks = [
     // { id: 1, path: "/", text: "Home", isVisible: true },
@@ -37,7 +36,7 @@ const Header = ({ dispatch }) => {
   ];
   const onLogout = () => {
     dispatch(setCurrentUser({}));
-    window.location.reload();
+    setTimeout(() => { window.location.href = '/' }, 120)
   };
 
   return (

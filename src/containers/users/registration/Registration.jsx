@@ -1,11 +1,12 @@
-import React, { useState } from "react";
-import { connect, useStore } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { connect, useSelector } from "react-redux";
 import { useHistory } from 'react-router-dom';
 import { addUser } from "../../../store/users/actions";
 import { validateUsername, validatePassword } from "../../../validation/userValidation";
 
 const Registration = ({ dispatch }) => {
-  const store = useStore();
+  const allUsers = useSelector((state) => state.users);
+  const currentActiveUser = useSelector((state) => state.currentUser);
   const history = useHistory();
   const [username, setUsername] = useState("");
   const [password1, setPassword1] = useState("");
@@ -14,6 +15,14 @@ const Registration = ({ dispatch }) => {
   const [userAlreadyTaken, setUserAlreadyTaken] = useState(false);
   const [passwordValid, setPasswordValid] = useState(true);
   const [samePasswords, setSamePasswords] = useState(true);
+
+  useEffect(() => {
+    // Check if user is logged in and redirect to main page if the user is logged
+    if (currentActiveUser && Object.keys(currentActiveUser).length !== 0) {
+      // Redirect user to main page
+      history.push('/')
+    }
+  });
 
   const handleRegistrationSubmit = (evt) => {
     evt.preventDefault();
@@ -33,8 +42,8 @@ const Registration = ({ dispatch }) => {
   }
 
   const isUserUnique = () => {
-    const allUsers = store.getState().users.users;
     const user = allUsers.find(user => user.username === username)
+
     if (user && Object.keys(user).length !== 0) {
       setUserAlreadyTaken(true)
       return false

@@ -7,8 +7,8 @@ import { validateTitle, validateDescription, validateEstimation } from '../../..
 const EditTask = ({ dispatch }) => {
   const history = useHistory();
   const { taskId } = useParams();
-  const currentActiveUser = useSelector((state) => state.users.currentUser);
-  const tasks = useSelector((state) => state.tasks.tasks);
+  const currentActiveUser = useSelector((state) => state.currentUser);
+  const tasks = useSelector((state) => state.tasks);
   const task = tasks.find(task => task.id === parseInt(taskId))
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");

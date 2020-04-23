@@ -6,48 +6,48 @@ import {
   SET_CURRENT_USER,
 } from "./actionTypes";
 
-const users = (state = initialState, action) => {
+export const usersReducers = (state = initialState.users, action) => {
   switch (action.type) {
     case ADD_USER:
-      return {
+      return [
         ...state,
-        users: [
-          ...state.users,
-          {
-            id: (state.users && state.users.length > 0) ? state.users[state.users.length-1].id + 1 : 1,
-            username: action.payload.username,
-            password: action.payload.password,
-            role: "user",
-          }
-        ]
-      };
+        {
+          id: state && state.length > 0 ? state[state.length - 1].id + 1 : 1,
+          username: action.payload.username,
+          password: action.payload.password,
+          role: "user",
+        },
+      ];
     case UPDATE_USER:
-      return {
-        ...state,
-        users: state.users.map((user) =>
+      return [
+        ...state.map((user) =>
           user.id === action.payload.id
             ? {
                 id: action.payload.id,
                 username: action.payload.username,
-                password: action.payload.password && action.payload.password.length >= 3 ? action.payload.password : user.password,
+                password:
+                  action.payload.password && action.payload.password.length >= 3
+                    ? action.payload.password
+                    : user.password,
                 role: action.payload.role,
               }
             : user
         ),
-      };
+      ];
     case DELETE_USER:
-      return {
-        ...state,
-        users: state.users.filter((user) => user.id !== action.payload)
-      };
-    case SET_CURRENT_USER:
-      return {
-        ...state,
-        currentUser: action.payload
-      };
+      return [...state.filter((user) => user.id !== action.payload)];
     default:
       return state;
   }
 };
 
-export default users;
+export const userReducers = (state = {}, action) => {
+  switch (action.type) {
+    case SET_CURRENT_USER:
+      // TODO - Empty object
+      return action.payload;
+
+    default:
+      return state;
+  }
+};

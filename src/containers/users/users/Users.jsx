@@ -7,8 +7,8 @@ import { deleteUser, setCurrentUser } from "../../../store/users/actions";
 import { deleteTasks } from "../../../store/tasks/actions";
 
 const Users = ({ dispatch }) => {
-  const users = useSelector((state) => state.users.users);
-  const currentUser = useSelector((state) => state.users.currentUser);
+  const users = useSelector((state) => state.users);
+  const currentUser = useSelector((state) => state.currentUser);
 
   const onDeleteUser = (id) => {
     const user = users.find((user) => user.id === parseInt(id));
@@ -26,7 +26,8 @@ const Users = ({ dispatch }) => {
       dispatch(deleteTasks(parseInt(id)));
       if (user.id === currentUser.id) {
         dispatch(setCurrentUser({}));
-        window.location.reload();
+        // Redirect to main page
+        setTimeout(() => { window.location.href = '/' }, 120)
       }
     }
   };

@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { connect, useStore } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { useHistory } from 'react-router-dom';
 import { addTask } from "../../../store/tasks/actions";
 import { validateTitle, validateDescription, validateEstimation } from '../../../validation/taskValidation'
 
 const AddTask = ({ dispatch }) => {
-  const store = useStore();
   const history = useHistory();
-  const currentActiveUser = store.getState().users.currentUser;
+  const currentActiveUser = useSelector((state) => state.currentUser);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [estimation, setEstimation] = useState(1);

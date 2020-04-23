@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { connect, useStore } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { useHistory } from 'react-router-dom';
 import { addUser } from "../../../store/users/actions";
 import { validateUsername, validatePassword } from "../../../validation/userValidation";
 
 const AddUser = ({ dispatch }) => {
-  const store = useStore();
   const history = useHistory();
-  const currentActiveUser = store.getState().users.currentUser;
+  const allUsers = useSelector((state) => state.users);
+  const currentActiveUser = useSelector((state) => state.currentUser);
   const [username, setUsername] = useState("");
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
@@ -42,7 +42,6 @@ const AddUser = ({ dispatch }) => {
   }
 
   const isUserUnique = () => {
-    const allUsers = store.getState().users.users;
     const user = allUsers.find(user => user.username === username)
 
     if (user && Object.keys(user).length !== 0) {
