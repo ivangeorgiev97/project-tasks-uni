@@ -41,6 +41,7 @@ const Registration = ({ dispatch }) => {
     return (validateUsername(username) && validatePassword(password1) && password1 === password2 && isUserUnique())
   }
 
+  // NOTE- This should be done with backend call and this function should be in separate file
   const isUserUnique = () => {
     const user = allUsers.find(user => user.username === username)
 

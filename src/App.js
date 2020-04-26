@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 // import Layout from "./components/layout/Layout";
@@ -14,8 +14,16 @@ import AddUser from "./containers/users/add/AddUser";
 import EditUser from "./containers/users/edit/EditUser";
 import AddTask from "./containers/tasks/add/AddTask";
 import EditTask from "./containers/tasks/edit/EditTask";
+import { getUsers } from "./store/users/actions";
+import { getTasks } from "./store/tasks/actions"
+import { connect } from "react-redux";
 
-function App() {
+function App({dispatch}) {
+  useEffect(() => {
+    dispatch(getUsers())
+    dispatch(getTasks())
+  })
+
   return (
     <Router>
       <div className="App">
@@ -57,4 +65,4 @@ function App() {
   );
 }
 
-export default App;
+export default connect()(App);

@@ -1,8 +1,8 @@
 export default {
-    // currentUser: {},
-    // isLogged: false,
-    // token: '',
-    users: [
+  // currentUser: {},
+  // isLogged: false,
+  // token: '',
+  /*     users: [
         {
             id: 1,
             username: 'admin',
@@ -15,5 +15,6 @@ export default {
             password: 'user',
             role: 'user'
         }
-    ]
-}
+    ] */
+  users: []
+};

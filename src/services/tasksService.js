@@ -1,9 +1,13 @@
 import { apiService } from "./apiService";
+import axios from "axios";
 
+
+const apiUrl = "http://localhost:3006";
 const resource = "tasks";
 
 export const tasksService = {
   getAllTasks,
+  getAllTasksByUserId,
   getTaskById,
   addTask,
   updateTask,
@@ -12,6 +16,11 @@ export const tasksService = {
 
 function getAllTasks() {
   return apiService.getAll(resource);
+}
+
+// this can also be done with additional parameters in getAll
+function getAllTasksByUserId(userId) {
+  return axios.get(`${apiUrl}/${resource}?userId=${userId}`);
 }
 
 function getTaskById(id) {
@@ -27,5 +36,6 @@ function updateTask(id, task) {
 }
 
 function deleteTask(id) {
+  console.log(id)
   return apiService.deleteObj(resource, id);
 }

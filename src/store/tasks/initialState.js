@@ -1,5 +1,6 @@
 export default {
-    tasks: [
+  tasks: []
+  /*     tasks: [
         {
             id: 1,
             title: 'First task',
@@ -16,5 +17,5 @@ export default {
             isCompleted: false,
             userId: 2
         }
-    ]
-}
+    ] */
+};

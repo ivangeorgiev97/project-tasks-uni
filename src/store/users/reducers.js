@@ -1,5 +1,6 @@
 import initialState from "../initialState";
 import {
+  RECEIVE_USERS,
   ADD_USER,
   UPDATE_USER,
   DELETE_USER,
@@ -8,6 +9,8 @@ import {
 
 export const usersReducers = (state = initialState.users, action) => {
   switch (action.type) {
+    case RECEIVE_USERS:
+      return action.payload
     case ADD_USER:
       return [
         ...state,

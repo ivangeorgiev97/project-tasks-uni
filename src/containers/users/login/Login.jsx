@@ -38,6 +38,7 @@ const Login = ({ dispatch }) => {
     return (validateUsername(username) && validatePassword(password) && checkUsernameAndPassword())
   };
 
+  // NOTE- This should be done with backend call
   const checkUsernameAndPassword = () => {
     const user = allUsers.find(
       (user) => user.username === username && user.password === password

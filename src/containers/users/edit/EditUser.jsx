@@ -71,6 +71,7 @@ const EditUser = ({ dispatch }) => {
     return validateUsername(username) && isUserUnique();
   };
 
+  // NOTE- This should be done with backend call and this function should be in separate file
   const isUserUnique = () => {
     const checkUser = allUsers.find((user) => user.username === username);
 

@@ -1,5 +1,6 @@
 import initialState from "../initialState";
 import {
+  RECEIVE_TASKS,
   ADD_TASK,
   UPDATE_TASK,
   DELETE_TASK,
@@ -8,6 +9,8 @@ import {
 
 const tasks = (state = initialState.tasks, action) => {
   switch (action.type) {
+    case RECEIVE_TASKS:
+      return action.payload
     case ADD_TASK:
       return [
         ...state,
