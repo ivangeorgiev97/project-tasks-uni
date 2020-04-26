@@ -36,6 +36,5 @@ function updateTask(id, task) {
 }
 
 function deleteTask(id) {
-  console.log(id)
   return apiService.deleteObj(resource, id);
 }
