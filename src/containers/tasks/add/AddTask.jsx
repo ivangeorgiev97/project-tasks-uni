@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { connect, useSelector } from "react-redux";
 import { useHistory } from 'react-router-dom';
 import { addTask } from "../../../store/tasks/actions";
@@ -14,14 +14,6 @@ const AddTask = ({ dispatch }) => {
   const [titleValid, setTitleValid] = useState(true);
   const [descriptionValid, setDescriptionValid] = useState(true);
   const [estimationValid, setEstimationValid] = useState(true);
-
-  useEffect(() => {
-    // Check if user is logged in and redirect to main page if the user is logged
-    if (!currentActiveUser || Object.keys(currentActiveUser).length === 0) {
-      // Redirect user to main page
-      history.push('/login')
-    }
-  });
 
   const handleAddTaskSubmit = evt => {
     evt.preventDefault();

@@ -17,6 +17,8 @@ import EditTask from "./containers/tasks/edit/EditTask";
 import { getUsers } from "./store/users/actions";
 import { getTasks } from "./store/tasks/actions"
 import { connect } from "react-redux";
+import LoggedInRoute from "./middle/LoggedInRoute";
+// import NotLoggedInRoute from "./middle/NotLoggedInRoute";
 
 function App({dispatch}) {
   useEffect(() => {
@@ -33,21 +35,13 @@ function App({dispatch}) {
             <Route path="/tasks">
               <Tasks />
             </Route>
-            <Route path="/addTask">
-              <AddTask />
-            </Route>
-           <Route path="/editTask/:taskId">
-              <EditTask />
-            </Route> 
+            <LoggedInRoute exact path="/addTask" component={AddTask} />
+            <LoggedInRoute exact path="/editTask/:taskId" component={EditTask} /> 
             <Route path="/users">
               <Users />
             </Route>
-            <Route path="/addUser">
-              <AddUser />
-            </Route>
-            <Route path="/editUser/:userId">
-              <EditUser />
-            </Route>
+            <LoggedInRoute exact path="/addUser" component={AddUser} />
+            <LoggedInRoute exact path="/editUser/:userId" component={EditUser} />
             <Route path="/registration">
               <Registration />
             </Route>

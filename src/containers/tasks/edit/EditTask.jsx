@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { connect, useSelector } from "react-redux";
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { updateTask } from "../../../store/tasks/actions";
 import { validateTitle, validateDescription, validateEstimation } from '../../../validation/taskValidation'
 
-const EditTask = ({ dispatch }) => {
+const EditTask = ({ computedMatch, dispatch }) => {
   const history = useHistory();
-  const { taskId } = useParams();
+  const taskId  = computedMatch.params.taskId;
   const currentActiveUser = useSelector((state) => state.currentUser);
   const tasks = useSelector((state) => state.tasks);
   const task = tasks.find(task => task.id === parseInt(taskId))
@@ -20,14 +20,10 @@ const EditTask = ({ dispatch }) => {
   const [estimationValid, setEstimationValid] = useState(true);
 
   useEffect(() => {
-    // Check if user is logged in and redirect to main page if the user is logged
-        // Check if user is logged in and redirect to main page if the user is logged
         if (
-            !currentActiveUser ||
             !taskId ||
             isNaN(parseInt(taskId)) ||
             taskId <= 0 ||
-            Object.keys(currentActiveUser).length === 0 ||
             !task ||
             Object.keys(task).length === 0 ||
             (currentActiveUser.id !== task.userId &&

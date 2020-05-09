@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { connect, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { updateUser } from "../../../store/users/actions";
 import {
   validateUsername,
   validatePassword,
 } from "../../../validation/userValidation";
 
-const EditUser = ({ dispatch }) => {
+const EditUser = ({ computedMatch, dispatch }) => {
   const history = useHistory();
-  const { userId } = useParams();
+  // const { userId } = useParams();
+  const userId  = computedMatch.params.userId;
   const currentActiveUser = useSelector((state) => state.currentUser);
   const allUsers = useSelector((state) => state.users);
   const user = allUsers.find((user) => user.id === parseInt(userId));
@@ -31,12 +32,6 @@ const EditUser = ({ dispatch }) => {
     // Check if user is logged in and redirect to main page if the user is not logged
     if (
       !currentActiveUser ||
-      !userId ||
-      isNaN(parseInt(userId)) ||
-      userId <= 0 ||
-      !user ||
-      Object.keys(user).length === 0 ||
-      Object.keys(currentActiveUser).length === 0 ||
       currentActiveUser.role !== "admin"
     ) {
       // Redirect user to main page

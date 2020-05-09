@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { connect, useSelector } from "react-redux";
 import { useHistory } from 'react-router-dom';
 import { addUser } from "../../../store/users/actions";
@@ -7,7 +7,6 @@ import { validateUsername, validatePassword } from "../../../validation/userVali
 const AddUser = ({ dispatch }) => {
   const history = useHistory();
   const allUsers = useSelector((state) => state.users);
-  const currentActiveUser = useSelector((state) => state.currentUser);
   const [username, setUsername] = useState("");
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
@@ -15,14 +14,6 @@ const AddUser = ({ dispatch }) => {
   const [userAlreadyTaken, setUserAlreadyTaken] = useState(false);
   const [passwordValid, setPasswordValid] = useState(true);
   const [samePasswords, setSamePasswords] = useState(true);
-
-  useEffect(() => {
-    // Check if user is logged in and redirect to main page if the user is logged
-    if (!currentActiveUser || Object.keys(currentActiveUser).length === 0 || currentActiveUser.role !== 'admin') {
-      // Redirect user to main page
-      history.push('/login')
-    }
-  });
 
   const handleAddUserSubmit = evt => {
     evt.preventDefault();
