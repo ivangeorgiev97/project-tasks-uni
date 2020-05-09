@@ -16,9 +16,9 @@
   "tasks": [
     {
       "id": 1,
-      "title": "First zzzz",
-      "description": "First task descriptionfasdfasfaf",
-      "estimation": 64,
+      "title": "First task",
+      "description": "First task description",
+      "estimation": 6,
       "isCompleted": true,
       "userId": 1
     },
